@@ -1,0 +1,6 @@
+Tareas:
+- Crear datasets según parámetros: nº de sujetos,...
+
+- Ver cómo crear el package.
+
+- Destripar el pipeline que se va ejecutar y dividirlo en tareas.
