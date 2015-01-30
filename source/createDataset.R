@@ -1,5 +1,14 @@
 #Create dataset, but depending on the arguments: 
 # number of genes, number of subjects
 createDataset <- function(nGenes, nSubjects){
+  #￼help(rnorm) help(runif) help(rpois)
+  #set.seed(2) #for testing
+  type <- factor(c(rep("Tetudas", nSubjects/2), rep("NoTetudas", nSubjects/2)))
   
+  genes <- matrix(rnorm(nSubjects * nGenes), ncol = nSubjects) #page 69 R-Bioinfo-intro 
+  
+  pvalues <- apply(genes, 1,
+                   function(x) t.test(x ~ type)$p.value)
+  #(hist(pvalues))
+  #pvalues
 }
