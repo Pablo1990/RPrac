@@ -1,11 +1,11 @@
 Tareas (los números indican el orden en el que se pueden hacer las cosas):
 - Crear datasets según parámetros: nº de sujetos,... (1)
 
-- Ver cómo crear el package. (1,2,3)
+- Ver cómo crear el package. (1,2,3) Pepeale
 
 - Destripar el pipeline que se va ejecutar y dividirlo en tareas:
 - Todo esto deberá estar separado en distinas funciones que serán llamadas desde un programa principal, de una forma secuencial:
-	- Filtrado de genes: Los genes seleccionados serán aquellos con el menor p-valor en un test de la t (2)
+	- Filtrado de genes: Los genes seleccionados serán aquellos con el menor p-valor en un test de la t (2) Pepeale
 	- Ejecutar el clasificador randomForest (2)
 	- Cross-validation (3)
 	- Hacer que este pipeline tenga la posibilidad de ejecutarse N veces. (2,3)
