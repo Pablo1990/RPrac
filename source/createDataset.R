@@ -3,7 +3,7 @@
 createDataset <- function(nGenes = 1000, nSubjects = 50){
   #￼help(rnorm) help(runif) help(rpois)
   #set.seed(2) #for testing
-  type <- factor(c(rep("Tetudas", nSubjects/2), rep("NoTetudas", nSubjects/2)))
+  type <- factor(c(rep("NONAFFECTED", nSubjects/2), rep("AFFECTED", nSubjects/2)))
   
   genes <- matrix(rnorm(nSubjects * nGenes), ncol = nSubjects) #page 69 R-Bioinfo-intro 
   
