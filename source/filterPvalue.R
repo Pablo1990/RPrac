@@ -1,4 +1,4 @@
-filter <- function () {
+filter <- function (data) {
   filtered <- data$pvalues <= quantile (data$pvalues,0.1)
   
   positions <- which(filtered)
