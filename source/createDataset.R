@@ -3,16 +3,8 @@
 createDataset <- function(nGenes = 100, nSubjects = 50){
   #￼help(rnorm) help(runif) help(rpois)
   #set.seed(2) #for testing
-  nNonAffected <- 0
-  nAffected <- 0
-  if(nSubjects%%2==1){
-    nNonAffected <- round(runif(1)*nSubjects)
-    nAffected <- nSubjects - nNonAffected
-  }else{
-    nNonAffected <- nSubjects/2
-    nAffected <- nSubjects/2
-  }
-  type <- factor(c(rep("NONAFFECTED", nNonAffected), rep("AFFECTED", nAffected)))
+  
+  type <- factor(rep(c("NONAFFECTED","AFFECTED"),length.out = nSubjects))
   
   genes <- matrix(rnorm(nGenes*nSubjects), nrow = nSubjects) #page 69 R-Bioinfo-intro
   
