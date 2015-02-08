@@ -6,16 +6,14 @@ main <- function (nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 10,
   cont <- 0
   while(cont < nTimes) {
 
-  #Divide in testing and training genes
-  #type
-  #genes
-  #pvalues
-  #Filter with the p-value the training set
-  testing = sample(nGenes, selectedGenes)
-  testing
-  nGenes
-  #Execute randomForest
-  
-  cont <- cont + 1
+    #Divide in testing and training genes
+    #type
+    #genes
+    #pvalues
+    #Filter with the p-value the training set
+    #Execute randomForest
+    randomForest(genes, type)
+      
+    cont <- cont + 1
   }
 }
