@@ -1,9 +1,9 @@
 main <- function (nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 10) {
   "hola hermosos"
   source('source/createDataset.R')
-  createDataset(nGenes, nSubjects)
+  data <- createDataset(nGenes, nSubjects)
   source('source/filterPvalue.R')
-  filter()
+  fs <- filter()
   cont <- 0
   while(cont < nTimes) {
 

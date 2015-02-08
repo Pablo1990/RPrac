@@ -1,8 +1,15 @@
 filter <- function () {
   filtered <- data$pvalues <= quantile (data$pvalues,0.1)
+  
   positions <- which(filtered)
-  datafiltered <- genes[,positions]
-  return (datafiltered)
+  
+  genes <- data$genes[,positions]
+  
+  type <- data$type[,positions]
+  
+  pvalues <- data~pvalues[,positions]
+  
+  return (list(type = type, genes = genes, pvalues = pvalues))
 }
 
 
