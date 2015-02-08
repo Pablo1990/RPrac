@@ -6,7 +6,7 @@ Tareas (los números indican el orden en el que se pueden hacer las cosas):
 - Destripar el pipeline que se va ejecutar y dividirlo en tareas:
 - Todo esto deberá estar separado en distinas funciones que serán llamadas desde un programa principal, de una forma secuencial:
 	- Filtrado de genes: Los genes seleccionados serán aquellos con el menor p-valor en un test de la t (2) Pepeale
-	- Ejecutar el clasificador randomForest (2)
-	- Cross-validation (3)
+	- Ejecutar el clasificador randomForest (2)Claudia
+	- Cross-validation (3)Claudia
 	- Hacer que este pipeline tenga la posibilidad de ejecutarse N veces. (2,3)
 	- Visualización de datos. (1,2,3)
