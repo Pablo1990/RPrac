@@ -7,8 +7,9 @@ createDataset <- function(nGenes = 100, nSubjects = 50){
   #type <- factor(rep(c("NONAFFECTED","AFFECTED"),length.out = nSubjects))
   #genes <- matrix(rnorm(nGenes*nSubjects), nrow = nSubjects) #page 69 R-Bioinfo-intro
   
-  data <- data.frame (gene = matrix(rnorm(nGenes*nSubjects), nrow = nSubjects), #page 69 R-Bioinfo-intro
-                      type = factor(rep(c("NONAFFECTED","AFFECTED"),length.out = nSubjects)))
+  data <- data.frame (gene = matrix(rnorm(nGenes*nSubjects), nrow = nSubjects)) #page 69 R-Bioinfo-intro
+  
+  type <- factor(rep(c("NONAFFECTED","AFFECTED"),length.out = nSubjects))
   
   #pvalues <- apply(genes, 2,
   #                 function(x) t.test(x ~ type)$p.value)
@@ -16,6 +17,6 @@ createDataset <- function(nGenes = 100, nSubjects = 50){
                    function(x) t.test(x ~ data$type)$p.value)
   #(hist(pvalues))
   #pvalues
-  return (list(data = data, pvalues = pvalues))
+  return (list(data = data, pvalues = pvalues, type = type))
   #attach(createDataset(1000, 50))
 }

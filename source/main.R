@@ -17,7 +17,7 @@ main <- function (nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 10,
       #print(datos$data.test)
       #print("-------------------------------")
       #model <- randomForest(genes, type, mtry=2, ntree=1000, keep.forest=TRUE, importance=TRUE)
-      model <- randomForest(type ~ ., data=datos$data, mtry=2, ntree=1000, keep.forest=TRUE, importance=TRUE)
+      model <- randomForest(type~., data=datos$data.train, mtry=2, ntree=1000, keep.forest=TRUE, importance=TRUE)
     }
     #type
     #genes
