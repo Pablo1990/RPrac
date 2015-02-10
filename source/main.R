@@ -10,14 +10,15 @@ main <- function (nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 10,
 
     #Divide in testing and training genes
 
-    index.select <- kfolding(datos)
+    index.select <- kfolding(datos,kFold)
     for(sample.number in 1:kFold) {
       datos$data.train <- datos$data[index.select != sample.number]
       datos$data.test <- datos$data[index.select == sample.number]
       #print(datos$data.test)
       #print("-------------------------------")
       #model <- randomForest(genes, type, mtry=2, ntree=1000, keep.forest=TRUE, importance=TRUE)
-      model <- randomForest(type~., data=datos$data.train, mtry=2, ntree=1000, keep.forest=TRUE, importance=TRUE)
+      model <- randomForest(y=datos$type, x=datos$data.train, mtry=2, ntree=1000, keep.forest=TRUE, importance=TRUE)
+      print(model)
     }
     #type
     #genes
