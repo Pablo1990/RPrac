@@ -13,7 +13,7 @@ createDataset <- function(nGenes = 100, nSubjects = 50){
   
   #pvalues <- apply(genes, 2,
   #                 function(x) t.test(x ~ type)$p.value)
-  pvalues <- apply(data[1:nrow(data),1:ncol(data)-1], 2, 
+  pvalues <- apply(data[1:nrow(data),1:ncol(data)], 2, 
                    function(x) t.test(x ~ type)$p.value)
   #(hist(pvalues))
   #pvalues
