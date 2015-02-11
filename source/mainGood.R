@@ -5,18 +5,19 @@ main <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, 
   library('randomForest')
   library("ROCR")
   datos <- createDataset(nGenes, nSubjects)
-  #datos$data <- filter(data, selectedGenes, nGenes)
   #print(datos$pvalues)
   cont <- 0
   while(cont < nTimes) {
     #Divide in testing and training genes
-
+    
     index.select <- kfolding(datos,kFold)
     for(sample.number in 1:kFold) {
-      datos$data.train <- datos$data[index.select != sample.number,]
-      datos$data.test <- datos$data[index.select == sample.number,]
       datos$type.train <- datos$type[index.select != sample.number]
+      datos$data.train <- datos$data[index.select != sample.number,]
+      datos$data.train <- filter(ncol(datos$data.train),selectedGenes,nco)
+      
       datos$type.test <- datos$type[index.select == sample.number]
+      datos$data.test <- datos$data[index.select == sample.number,]
       #print(datos$data.test)
       #print("-------------------------------")
       #print(datos$data.train)
