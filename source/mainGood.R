@@ -1,6 +1,6 @@
 main <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 1) {
   source('source/createDataset.R')
-  source('source/filterPvalue.R')
+  source('source/filterPvalueGood.R')
   source('source/kfolding.R')
   library('randomForest')
   library("ROCR")
@@ -14,7 +14,7 @@ main <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, 
     for(sample.number in 1:kFold) {
       datos$type.train <- datos$type[index.select != sample.number]
       datos$data.train <- datos$data[index.select != sample.number,]
-      datos$data.train <- filter(ncol(datos$data.train),selectedGenes,nco)
+      datos$data.train <- filter(datos,selectedGenes,nGenes)
       
       datos$type.test <- datos$type[index.select == sample.number]
       datos$data.test <- datos$data[index.select == sample.number,]
