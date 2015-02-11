@@ -7,6 +7,7 @@ visualizeData <- function(){
   library("ROCR")
   #Brier()
   pred <- prediction(predictions, labels)
+  #pred <- prediction(datos$data, mypredict)
   perf <- performance(pred, measure = "tpr", x.measure = "fpr")
   plot(perf, col=rainbow(10))
 }
