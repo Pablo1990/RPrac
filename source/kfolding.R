@@ -1,5 +1,5 @@
 kfolding <- function (datos,kFold){
-  N <- length(datos$data)
+  N <- nrow(datos$data)
   kfold <- kFold ## el k-fold
   ## en la k-vez, dejamos en testing set
   ## los que tienen index.select = k

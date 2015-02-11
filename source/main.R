@@ -12,8 +12,8 @@ main <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, 
 
     index.select <- kfolding(datos,kFold)
     for(sample.number in 1:kFold) {
-      datos$data.train <- datos$data[index.select != sample.number]
-      datos$data.test <- datos$data[index.select == sample.number]
+      datos$data.train <- datos$data[,index.select != sample.number]
+      datos$data.test <- datos$data[,index.select == sample.number]
       #print(datos$data.test)
       #print("-------------------------------")
       #print(datos$data.train)
