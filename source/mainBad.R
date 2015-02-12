@@ -1,4 +1,13 @@
-main <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 1) {
+#The main program, which runs all the instructions to execute the random forest with cross-validation
+#This will work in a bad way, because we do the feature selection before the division between 
+#training dataset and testing dataset.
+#Arguments:
+#nGenes: number of genes involved in the study
+#nSubjects: number of subjects involved in the study
+#kFold: The number of times we are going to divide the dataset in train and dataset
+#selectedGenes: number of genes we are going to select for training dataset
+#nTimes: we execute the process n times.
+mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 1) {
   source('source/createDataset.R')
   source('source/filterPvalueBad.R')
   source('source/kfolding.R')

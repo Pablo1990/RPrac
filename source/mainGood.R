@@ -1,4 +1,12 @@
-main <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 1) {
+#The main program, which runs all the instructions to execute the random forest with cross-validation
+#This will work in a good way
+#Arguments:
+#nGenes: number of genes involved in the study
+#nSubjects: number of subjects involved in the study
+#kFold: The number of times we are going to divide the dataset in train and dataset
+#selectedGenes: number of genes we are going to select for training dataset
+#nTimes: we execute the process n times.
+mainGood <- function (nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 100, nTimes = 1) {
   source('source/createDataset.R')
   source('source/filterPvalueGood.R')
   source('source/kfolding.R')
