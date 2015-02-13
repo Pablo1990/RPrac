@@ -8,29 +8,42 @@
 #selectedGenes: number of genes we are going to select for training dataset
 #nTimes: we execute the process n times.
 mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 1) {
+  #Load the files and libraries needed
   source('source/createDataset.R')
   source('source/filterPvalueBad.R')
   source('source/kfolding.R')
   library('randomForest')
   library("ROCR")
+  
+  #Creating the dataset and storing in the variable 'datos'
   datos <- createDataset(nGenes, nSubjects)
+  #Filtering the set. This is the bad way.
   datos <- filter(datos, selectedGenes, nGenes)
-  #print(datos$pvalues)
+  
+  #initialize the counter
   cont <- 0
+  #While the counter (i.e. the number of times we have executed the random forest)
+  #is lower than the total of times we must execute the random forest.
   while(cont < nTimes) {
-    #Divide in testing and training genes
-
+    
+    #Store in index.select the vector of orders
     index.select <- kfolding(datos,kFold)
+    
+    #Doing the kfolding
     for(sample.number in 1:kFold) {
+      #Divide in testing and training genes
+      #If the position is in this round of the folding and is the same
+      #in the index.select, it will go to the testing set, otherwise
+      #to the training set.
       datos$data.train <- datos$data[index.select != sample.number,]
       datos$data.test <- datos$data[index.select == sample.number,]
       datos$type.train <- datos$type[index.select != sample.number]
       datos$type.test <- datos$type[index.select == sample.number]
-      #print(datos$data.test)
-      #print("-------------------------------")
-      #print(datos$data.train)
-      #model <- randomForest(genes, type, mtry=2, ntree=1000, keep.forest=TRUE, importance=TRUE)
+      
+      #Execute the random forest, y would the labels "affected" and "NonAffected"
+      #and x the training set
       myrf <- randomForest(y=datos$type.train, x=datos$data.train,mtry=2, ntree=500, keep.forest=TRUE, importance=TRUE)
+      #After that, we predict what the classifier learned, with the training set.
       mypredict <- predict(myrf, datos$data.test)
       
       #(rfcv(datos$data.test, datos$type, cv.fold=kFold)) #esto es algo que hace crossvalidation
@@ -45,8 +58,7 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
       
     }
     
+    #Another round of the random forest
     cont <- cont + 1
   }
-  
-  #print(length(myrfList))
 }
