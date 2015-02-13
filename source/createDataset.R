@@ -5,7 +5,7 @@ createDataset <- function(nGenes = 100, nSubjects = 50){
   #￼help(rnorm) help(runif) help(rpois)
   #set.seed(2) #for testing
   
-  #We create a data frame with genes in columns, and in rows the subjects.
+  #Create a data frame with genes in columns, and in rows the subjects.
   data <- data.frame (gene = matrix(rnorm(nGenes*nSubjects), nrow = nSubjects))
   
   #Generating the types of the subjects divide in affected and nonAffected
