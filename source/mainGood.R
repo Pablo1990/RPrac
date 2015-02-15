@@ -25,8 +25,23 @@ main <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, 
       #tunerf<-tuneRF(x = datos$data.train, y = datos$type.train, ntreeTry=200, stepFactor = 1.5)
       
       myrf <- randomForest(x=datos$data.train, y=datos$type.train, mtry=, ntree=500, keep.forest=TRUE, importance=TRUE)
-      mypredict <- predict(myrf, datos$data.test, type = "prob")
-      mypredict2<-mypredict[,1]
+      mypredict <- predict(myrf, datos$data.test)
+      mypredict <- predict(myrf, datos$data.test, type = "prob")#Aquí tenemos las probabilidades de cada prediccion.
+     
+      #score de brier, curva Roc
+      library("ModelGood")
+      prob<- predictStatusProb(myrf, datos$data.test)#Una lista del riesgo predictivo.
+      #Roc(object, formula, data, splitMethod='noSplitMethod'), esto sacaría tb el score de brier, área bajo la curva etc
+      Roc<-Roc(prob~data$data.test, data = datos$data, splitMethod = bootCV)#da error
+      #plot(Roc)
+      plot(Roc, ylab = "Sensitivity", xlab = "1-Specificity", models,
+           type = "l", shadow = FALSE, simu = FALSE, control, grid = FALSE,
+           diag = TRUE, box = FALSE, lwd = 2, lty, col, add = FALSE,
+           axes = TRUE, legend, auc, percent = TRUE, ...)
+      
+      #La otra forma con libraryROCR
+      
+      mypredict2<-mypredict[,1]#he cogido solo las de estar afectado. 
       #mypredict3<-mypredict[,2]
       #CURVA ROC
       #pred <- prediction(predictions, labels)
