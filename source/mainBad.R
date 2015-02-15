@@ -13,13 +13,9 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
   source('source/filterPvalueBad.R')
   source('source/kfolding.R')
   library('randomForest')
-<<<<<<< Updated upstream
   library("ROCR")
   
   #Creating the dataset and storing in the variable 'datos'
-=======
-  #library("ROCR")
->>>>>>> Stashed changes
   datos <- createDataset(nGenes, nSubjects)
   #Filtering the set. This is the bad way.
   datos <- filter(datos, selectedGenes, nGenes)
