@@ -7,7 +7,6 @@
 #selectedGenes: number of genes we are going to select for training dataset
 #nTimes: we execute the process n times.
 mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 1) {
-  
   #Header
   #Load the files and libraries needed
   source('source/createDataset.R')
@@ -15,12 +14,9 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
   source('source/kfolding.R')
   library('randomForest')
   library("ROCR")
-  
   #---------------------
-  
   #Creating the dataset and storing in the variable 'datos'
   datos <- createDataset(nGenes, nSubjects)
-  
   #initialize the counter
   cont <- 0
   #While the counter (i.e. the number of times we have executed the random forest)
@@ -28,7 +24,6 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
   while(cont < nTimes) {
     #Store in index.select the vector of orders
     index.select <- kfolding(datos,kFold)
-    
     #Doing the kfolding
     for(sample.number in 1:kFold) {
       #Divide in testing and training genes
@@ -39,12 +34,11 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       datos$data.train <- datos$data[index.select != sample.number,]
       #Get the genes with more important pvalues
       datos$data.train <- filter(datos,selectedGenes,nGenes)
-      
       #Testing set
       datos$type.test <- datos$type[index.select == sample.number]
       datos$data.test <- datos$data[index.select == sample.number,]
       #Execute the random forest, y would the labels "affected" and "NonAffected"
-      #and x the training set      
+      #and x the training set
       myrf <- randomForest(x=datos$data.train, y=datos$type.train, mtry=2, ntree=500, keep.forest=TRUE, importance=TRUE)
       #Predicting what the classifier learned, with the training set.
       mypredict <- predict(myrf, datos$data.test, type = "prob")
@@ -56,9 +50,20 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       pred <- prediction(mypredict2, datos$type.test)#solo funciona con el type...está mal, y la curva que sale tb..digo yo.
       perf <- performance(pred, measure = "tpr", x.measure = "fpr")
       plot(perf, col=rainbow(10))
+     
+      #score de brier, curva Roc. 
+      library("ModelGood")
+      prob<- predictStatusProb(myrf, datos$data.test)#Una lista del riesgo predictivo.
+      #Roc(object, formula, data, splitMethod='noSplitMethod'), esto sacaría tb el score de brier, área bajo la curva etc
+      Roc<-Roc(prob~data$data.test, data = datos$data, splitMethod = bootCV)#da error
+      #plot(Roc)
+      plot(Roc, ylab = "Sensitivity", xlab = "1-Specificity", models,
+           type = "l", shadow = FALSE, simu = FALSE, control, grid = FALSE,
+           diag = TRUE, box = FALSE, lwd = 2, lty, col, add = FALSE,
+           axes = TRUE, legend, auc, percent = TRUE, ...)
       
     }
     #Another round of the random forest
     cont <- cont + 1
   }
-}
+  
