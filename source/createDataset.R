@@ -10,10 +10,12 @@ createDataset <- function(nGenes = 100, nSubjects = 50){
   
   #Generating the types of the subjects divide in affected and nonAffected
   type <- factor(rep(c("NONAFFECTED","AFFECTED"),length.out = nSubjects))
+
   
   #Calculate the pvalues of every gene
   pvalues <- apply(data[1:nrow(data),1:ncol(data)], 2, 
                    function(x) t.test(x ~ type)$p.value)
+
   #(hist(pvalues))
   
   #Return every variable calculated

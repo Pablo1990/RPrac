@@ -10,6 +10,6 @@ createDataset <- function(nGenes = 100, nSubjects = 50){
 
 }
 
-pvalues <- apply(data[1:nrow(data),1:ncol(data)-1)], 2, function(x) t.test(x ~ data$type)$p.value)
+pvalues <- apply(data[1:nrow(data),1:ncol(data)], 2, function(x) t.test(x ~ data$type)$p.value)
 
 #id = replicate(23, paste(sample(letters, 10), collapse = "")))
