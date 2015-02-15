@@ -37,6 +37,7 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       #to the training set.
       datos$type.train <- datos$type[index.select != sample.number]
       datos$data.train <- datos$data[index.select != sample.number,]
+      #Get the genes with more important pvalues
       datos$data.train <- filter(datos,selectedGenes,nGenes)
       
       #Testing set
