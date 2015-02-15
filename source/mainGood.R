@@ -12,6 +12,7 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
   source('source/createDataset.R')
   source('source/filterPvalueGood.R')
   source('source/kfolding.R')
+  library("ModelGood")
   library('randomForest')
   library("ROCR")
   #---------------------
@@ -47,15 +48,16 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       
       #ROC
       #pred <- prediction(predictions, labels)
-      pred <- prediction(mypredict2, datos$type.test)#solo funciona con el type...está mal, y la curva que sale tb..digo yo.
-      perf <- performance(pred, measure = "tpr", x.measure = "fpr")
-      plot(perf, col=rainbow(10))
+      #pred <- prediction(mypredict2, datos$type.test)#solo funciona con el type...está mal, y la curva que sale tb..digo yo.
+      #perf <- performance(pred, measure = "tpr", x.measure = "fpr")
+      #plot(perf, col=rainbow(10))
      
       #score de brier, curva Roc. 
-      library("ModelGood")
       prob<- predictStatusProb(myrf, datos$data.test)#Una lista del riesgo predictivo.
-      #Roc(object, formula, data, splitMethod='noSplitMethod'), esto sacaría tb el score de brier, área bajo la curva etc
-      Roc<-Roc(prob~data$data.test, data = datos$data, splitMethod = bootCV)#da error
+      
+      #Or roc or auc, same thing
+      Brier(myrf, datos$type.train ~ . , data=datos$data.train , splitMethod='bootCV')#da error, pero corre el algoritmo
+      
       #plot(Roc)
       plot(Roc, ylab = "Sensitivity", xlab = "1-Specificity", models,
            type = "l", shadow = FALSE, simu = FALSE, control, grid = FALSE,
@@ -66,4 +68,4 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
     #Another round of the random forest
     cont <- cont + 1
   }
-  
+}
