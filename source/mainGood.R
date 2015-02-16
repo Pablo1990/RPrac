@@ -47,22 +47,20 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       #mypredict3<-mypredict[,2]
       
       #ROC
-      #pred <- prediction(predictions, labels)
-      #pred <- prediction(mypredict2, datos$type.test)#solo funciona con el type...está mal, y la curva que sale tb..digo yo.
-      #perf <- performance(pred, measure = "tpr", x.measure = "fpr")
-      #plot(perf, col=rainbow(10))
+      pred <- prediction(predictions, labels)
+      pred <- prediction(mypredict2, datos$type.test)
+      perf <- performance(pred, measure = "tpr", x.measure = "fpr")
+      plot(perf, col=rainbow(10))
      
-      #score de brier, curva Roc. 
-      prob<- predictStatusProb(myrf, datos$data.test)#Una lista del riesgo predictivo.
+      #score de brier. 
       
-      #Or roc or auc, same thing
-      Brier(myrf, datos$type.train ~ . , data=datos$data.train , splitMethod='bootCV')#da error, pero corre el algoritmo
+      brierscore<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
       
       #plot(Roc)
-      plot(Roc, ylab = "Sensitivity", xlab = "1-Specificity", models,
-           type = "l", shadow = FALSE, simu = FALSE, control, grid = FALSE,
-           diag = TRUE, box = FALSE, lwd = 2, lty, col, add = FALSE,
-           axes = TRUE, legend, auc, percent = TRUE, ...)
+      #plot(Roc, ylab = "Sensitivity", xlab = "1-Specificity", models,
+       #    type = "l", shadow = FALSE, simu = FALSE, control, grid = FALSE,
+        #   diag = TRUE, box = FALSE, lwd = 2, lty, col, add = FALSE,
+         #  axes = TRUE, legend, auc, percent = TRUE, ...)
       
     }
     #Another round of the random forest

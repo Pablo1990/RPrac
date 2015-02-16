@@ -44,8 +44,14 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
       #and x the training set
       myrf <- randomForest(y=datos$type.train, x=datos$data.train,mtry=2, ntree=500, keep.forest=TRUE, importance=TRUE)
       #After that, we predict what the classifier learned, with the training set.
-      mypredict <- predict(myrf, datos$data.test)
+      mypredict <- predict(myrf, datos$data.test, type="prob")
+      mypredict2<-mypredict[,1]
       
+      #ROC
+      pred <- prediction(predictions, labels)
+      pred <- prediction(mypredict2, datos$type.test)
+      perf <- performance(pred, measure = "tpr", x.measure = "fpr")
+      plot(perf, col=rainbow(10))
       #(rfcv(datos$data.test, datos$type, cv.fold=kFold)) #esto es algo que hace crossvalidation
       #pero no entiendo nada de lo que hace
       
@@ -55,6 +61,13 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
       #print(myrf)
       #print(myrf$predicted)
       #print(myrf$confusion)
+      brierscore<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
+      
+      #plot(Roc)
+      #Roc<-plot(Roc, ylab = "Sensitivity", xlab = "1-Specificity", models,
+       #    type = "l", shadow = FALSE, simu = FALSE, control, grid = FALSE,
+        #   diag = TRUE, box = FALSE, lwd = 2, lty, col, add = FALSE,
+         #  axes = TRUE, legend, auc, percent = TRUE, ...)
       
     }
     
