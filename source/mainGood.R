@@ -8,7 +8,7 @@
 #nTimes: we execute the process n times.
 mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 1) {
   #Header
-  #Load the files and libraries needed
+  #Load the files and libraries needed 
   source('source/createDataset.R')
   source('source/filterPvalueGood.R')
   source('source/kfolding.R')
@@ -47,15 +47,16 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       #mypredict3<-mypredict[,2]
       
       #ROC
-      pred <- prediction(predictions, labels)
-      pred <- prediction(mypredict2, datos$type.test)
-      perf <- performance(pred, measure = "tpr", x.measure = "fpr")
-      plot(perf, col=rainbow(10))
+      #pred <- prediction(predictions, labels)
+      #pred <- prediction(mypredict2, datos$type.test)
+      #perf <- performance(pred, measure = "tpr", x.measure = "fpr")
+      #plot(perf, col=rainbow(10))
      
       #score de brier. 
-      
-      brierscore<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
-      
+      brierscoreTrain<-Brier(myrf, datos$type.test ~ . , data=datos$data.test)
+      print(brierscoreTrain)
+      brierscoreTest<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
+      print(brierscoreTest)
       #plot(Roc)
       #plot(Roc, ylab = "Sensitivity", xlab = "1-Specificity", models,
        #    type = "l", shadow = FALSE, simu = FALSE, control, grid = FALSE,

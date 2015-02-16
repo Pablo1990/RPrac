@@ -48,7 +48,7 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
       mypredict2<-mypredict[,1]
       
       #ROC
-      pred <- prediction(predictions, labels)
+      #pred <- prediction(predictions, labels)
       pred <- prediction(mypredict2, datos$type.test)
       perf <- performance(pred, measure = "tpr", x.measure = "fpr")
       plot(perf, col=rainbow(10))
@@ -61,7 +61,10 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
       #print(myrf)
       #print(myrf$predicted)
       #print(myrf$confusion)
-      brierscore<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
+      brierscoreTrain<-Brier(myrf, datos$type.test ~ . , data=datos$data.test)
+      print(brierscoreTrain)
+      brierscoreTest<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
+      print(brierscoreTest)
       
       #plot(Roc)
       #Roc<-plot(Roc, ylab = "Sensitivity", xlab = "1-Specificity", models,
