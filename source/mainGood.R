@@ -18,6 +18,7 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
   library("scoring")
   #---------------------
   iterationOOB <- c()
+  iterationbrier<-c()
   #initialize the counter
   cont <- 0
   #While the counter (i.e. the number of times we have executed the random forest)
@@ -74,24 +75,20 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       
       #Score de brier
       bscore<-brierscore(mypredictresp ~ mypredictprob, data = datos$type.test)
-      #print(mean(bscore))
-      brierscore<-c(brierscore, (mean(brierscore)))
-      #brierscore<-mean(bscore)
-      #brierscoreTest<-Brier(myrf, x=datos$type.test , y=datos$data.test, formula = datos$type.test ~ ., data=datos$data.test)
-      #print(brierscoreTest)
-      #brierscoreTrain<-Brier(myrf, x=datos$type.train , y=datos$data.train, formula = datos$type.train ~ ., data=datos$data.train)
-      #print(brierscoreTrain)
-      
+
+      brierscore<-c(brierscore, (mean(bscore)))
+    
     }
     
     #Mean of classification errors of randomForest
     mean.err.class <- mean(err.class)
-    brierscore<-mean(brierscore)
+    brierscoremean<-mean(brierscore)
     iterationOOB <- c(iterationOOB, mean.err.class)
+    iterationbrier<-c(iterationbrier, brierscoremean)
     #Another iteration
     cont <- cont + 1
     
   }
-  return(iterationOOB)
+  return (list(iterationOOB, iterationbrier))
   
 }
