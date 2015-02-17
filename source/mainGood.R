@@ -15,6 +15,7 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
   library("ModelGood")
   library('randomForest')
   library("pROC")
+  library("scoring")
   #---------------------
   iterationOOB <- c()
   #initialize the counter
@@ -29,6 +30,7 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
     index.select <- kfolding(datos,kFold)
     #Store in err.class the classification errors of randomForest
     err.class <- c()
+    brierscore<-c()
     #Doing the kfolding
     for(sample.number in 1:kFold) {
       #Divide in testing and training genes
@@ -47,30 +49,38 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       myrf <- randomForest(x=datos$data.train, y=datos$type.train, mtry=2, ntree=500, keep.forest=TRUE, importance=TRUE)
       err.class <- c(err.class,(sum(myrf$confusion[2:3]))/(sum(myrf$confusion[1:4])))
       #Predicting what the classifier learned with the training set.
-      mypredict <- predict(myrf, datos$data.test, type = "prob")
-      mypredict2<-mypredict[,2]
+      mypredictprob <- predict(myrf, datos$data.test, type = "prob")
+      mypredictresp <- predict(myrf, datos$data.test, type = "response")
+      mypredict2<-mypredictprob[,2]
       
       #Curva Roc
-     # roc <- roc(datos$type.test, mypredict2,
-      #            # arguments for auc
+      #roc <- roc(response = datos$type.test, predictor = mypredict2,
+                  # arguments for auc
        #           auc=TRUE,
                   # arguments for ci
         #          ci=TRUE,
                   # arguments for plot
-         #         plot=TRUE)
+          #        plot=TRUE)
     
       #Score de brier. 
-      brierscoreTest<-Brier(myrf, x=datos$type.test , y=datos$data.test, formula = datos$type.test ~ ., data=datos$data.test)
+      bscore<-brierscore(mypredictresp ~ mypredictprob, data = datos$type.test)
+      print(mean(bscore))
+      brierscore<-c(brierscore, (mean(brierscore))
+      #brierscore<-mean(bscore)
+      #brierscoreTest<-Brier(myrf, x=datos$type.test , y=datos$data.test, formula = datos$type.test ~ ., data=datos$data.test)
       #print(brierscoreTest)
-      brierscoreTrain<-Brier(myrf, x=datos$type.train , y=datos$data.train, formula = datos$type.train ~ ., data=datos$data.train)
+      #brierscoreTrain<-Brier(myrf, x=datos$type.train , y=datos$data.train, formula = datos$type.train ~ ., data=datos$data.train)
       #print(brierscoreTrain)
-      
+    
     }
+    
     #Mean of classification errors of randomForest
     mean.err.class <- mean(err.class)
+    brierscore<-mean(brierscore)
     iterationOOB <- c(iterationOOB, mean.err.class)
     #Another iteration
     cont <- cont + 1
+    
   }
   return(iterationOOB)
 
