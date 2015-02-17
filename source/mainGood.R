@@ -65,23 +65,23 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       
       #Curva Roc
       #roc <- roc(response = datos$type.test, predictor = mypredict2,
-                  # arguments for auc
-       #           auc=TRUE,
-                  # arguments for ci
-        #          ci=TRUE,
-                  # arguments for plot
-          #        plot=TRUE)
-    
-      #Score de brier. 
+      # arguments for auc
+      #           auc=TRUE,
+      # arguments for ci
+      #          ci=TRUE,
+      # arguments for plot
+      #        plot=TRUE)
+      
+      #Score de brier
       bscore<-brierscore(mypredictresp ~ mypredictprob, data = datos$type.test)
-      print(mean(bscore))
-      brierscore<-c(brierscore, (mean(brierscore))
+      #print(mean(bscore))
+      brierscore<-c(brierscore, (mean(brierscore)))
       #brierscore<-mean(bscore)
       #brierscoreTest<-Brier(myrf, x=datos$type.test , y=datos$data.test, formula = datos$type.test ~ ., data=datos$data.test)
       #print(brierscoreTest)
       #brierscoreTrain<-Brier(myrf, x=datos$type.train , y=datos$data.train, formula = datos$type.train ~ ., data=datos$data.train)
       #print(brierscoreTrain)
-    
+      
     }
     
     #Mean of classification errors of randomForest
@@ -93,5 +93,5 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
     
   }
   return(iterationOOB)
-
+  
 }
