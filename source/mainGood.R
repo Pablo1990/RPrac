@@ -6,7 +6,7 @@
 #kFold: The number of times we are going to divide the dataset in train and dataset
 #selectedGenes: number of genes we are going to select for training dataset
 #nTimes: we execute the process n times.
-mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 2) {
+mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 10) {
   #Header
   #Load the files and libraries needed 
   source('source/createDataset.R')
@@ -60,9 +60,9 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
          #         plot=TRUE)
     
       #Score de brier. 
-      #brierscoreTest<-Brier(myrf, datos$type.test ~ . , data=datos$data.test)
+      brierscoreTest<-Brier(myrf, x=datos$type.test , y=datos$data.test, formula = datos$type.test ~ ., data=datos$data.test)
       #print(brierscoreTest)
-      #brierscoreTrain<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
+      brierscoreTrain<-Brier(myrf, x=datos$type.train , y=datos$data.train, formula = datos$type.train ~ ., data=datos$data.train)
       #print(brierscoreTrain)
       
     }
