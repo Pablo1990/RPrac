@@ -27,6 +27,7 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
     
     #Store in index.select the vector of orders
     index.select <- kfolding(datos,kFold)
+    #Store in err.class the classification errors of randomForest
     err.class <- c()
     #Doing the kfolding
     for(sample.number in 1:kFold) {
