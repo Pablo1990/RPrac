@@ -82,5 +82,5 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
     #Another iteration
     cont <- cont + 1
   }
-  return(iterationOOB)
+  return(list(OOB=iterationOOB))
 }

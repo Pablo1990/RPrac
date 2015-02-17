@@ -89,6 +89,6 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
     cont <- cont + 1
     
   }
-  return (list(iterationOOB, iterationbrier))
+  return (list(OOB= iterationOOB, brier = iterationbrier))
   
 }
