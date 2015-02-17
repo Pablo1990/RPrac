@@ -6,7 +6,7 @@
 #kFold: The number of times we are going to divide the dataset in train and dataset
 #selectedGenes: number of genes we are going to select for training dataset
 #nTimes: we execute the process n times.
-mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 2) {
+mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 10) {
   #Header
   #Load the files and libraries needed 
   source('source/createDataset.R')
@@ -45,10 +45,12 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       #Execute the random forest, y = the labels "affected" and "NonAffected"
       #and x=the training set
       myrf <- randomForest(x=datos$data.train, y=datos$type.train, mtry=2, ntree=500, keep.forest=TRUE, importance=TRUE)
-      err.class <- c(err.class,(sum(myrf$confusion[2:3]))/(sum(myrf$confusion[1:4])))
       #Predicting what the classifier learned with the training set.
-      mypredict <- predict(myrf, datos$data.test, type = "prob")
-      mypredict2<-mypredict[,2]
+      prediction <- predict(myrf,datos$data.test)
+      confusion.table <- table(factor(datos$type.test),prediction)
+      err.class <-  c(err.class,(1-sum(diag(confusion.table))/(sum(confusion.table))))
+      predict.prob <- predict(myrf, datos$data.test, type = "prob")
+      mypredict2<-predict.prob[,2]
       
       #Curva Roc
      # roc <- roc(datos$type.test, mypredict2,
