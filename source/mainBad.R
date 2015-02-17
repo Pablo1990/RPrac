@@ -42,6 +42,7 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
       #Execute the random forest, y would the labels "affected" and "NonAffected"
       #and x the training set
       myrf <- randomForest(y=datos$type.train, x=datos$data.train,mtry=2, ntree=500, keep.forest=TRUE, importance=TRUE)
+      err.class <- c(err.class,mean(myrf$confusion[,c(3)]))
       #After that, we predict what the classifier learned, with the training set.
       mypredict <- predict(myrf, datos$data.test, type="prob")
       mypredict2<-mypredict[,1]
@@ -72,8 +73,10 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
          #  axes = TRUE, legend, auc, percent = TRUE, ...)
       
     }
+    #Mean of classification errors of randomForest.
+    mean.err.class <- mean(err.class)
     
-    #Another round of the random forest
+    #Another iteration
     cont <- cont + 1
   }
 }

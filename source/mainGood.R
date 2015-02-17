@@ -27,6 +27,7 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
     
     #Store in index.select the vector of orders
     index.select <- kfolding(datos,kFold)
+    err.class <- c()
     #Doing the kfolding
     for(sample.number in 1:kFold) {
       #Divide in testing and training genes
@@ -43,6 +44,7 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       #Execute the random forest, y would the labels "affected" and "NonAffected"
       #and x the training set
       myrf <- randomForest(x=datos$data.train, y=datos$type.train, mtry=2, ntree=500, keep.forest=TRUE, importance=TRUE)
+      err.class <- c(err.class,mean(myrf$confusion[,c(3)]))
       #Predicting what the classifier learned, with the training set.
       mypredict <- predict(myrf, datos$data.test, type = "prob")
       mypredict2<-mypredict[,1]
@@ -66,7 +68,10 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
          #  axes = TRUE, legend, auc, percent = TRUE, ...)
       
     }
-    #Another round of the random forest
+    #Mean of classification errors of randomForest
+    mean.err.class <- mean(err.class)
+    
+    #Another iteration
     cont <- cont + 1
   }
 }
