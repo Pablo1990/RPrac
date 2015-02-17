@@ -49,32 +49,22 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
       err.class <- c(err.class,(sum(myrf$confusion[2:3]))/(sum(myrf$confusion[1:4])))
       #After that, we predict what the classifier learned, with the training set.
       mypredict <- predict(myrf, datos$data.test, type="prob")
-      mypredict2<-mypredict[,1]
+      mypredict2<-mypredict[,2]
+
+      #Curva Roc
+      #roc <- roc(datos$type.test, mypredict2,
+       #          # arguments for auc
+        #         auc=TRUE,
+                 # arguments for ci
+         #        ci=TRUE,
+                 # arguments for plot
+          #       plot=TRUE)
       
-      #ROC
-      #pred <- prediction(predictions, labels)
-      #pred <- prediction(mypredict2, datos$type.test)
-      #perf <- performance(pred, measure = "tpr", x.measure = "fpr")
-      #plot(perf, col=rainbow(10))
-      #(rfcv(datos$data.test, datos$type, cv.fold=kFold)) #esto es algo que hace crossvalidation
-      #pero no entiendo nada de lo que hace
-      
-      #print(mypredict)
-      #print("-------------------")
-      #print(myrf$predicted)
-      #print(myrf)
-      #print(myrf$predicted)
-      #print(myrf$confusion)
       #brierscoreTest<-Brier(myrf, datos$type.test ~ . , data=datos$data.test)
       #print(brierscoreTest)
       #brierscoreTrain<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
       #print(brierscoreTrain)
-      
-      #plot(Roc)
-      #Roc<-plot(Roc, ylab = "Sensitivity", xlab = "1-Specificity", models,
-       #    type = "l", shadow = FALSE, simu = FALSE, control, grid = FALSE,
-        #   diag = TRUE, box = FALSE, lwd = 2, lty, col, add = FALSE,
-         #  axes = TRUE, legend, auc, percent = TRUE, ...)
+
       
     }
     #Mean of classification errors of randomForest.

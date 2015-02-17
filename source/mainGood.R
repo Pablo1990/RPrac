@@ -6,7 +6,7 @@
 #kFold: The number of times we are going to divide the dataset in train and dataset
 #selectedGenes: number of genes we are going to select for training dataset
 #nTimes: we execute the process n times.
-mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 10) {
+mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 2) {
   #Header
   #Load the files and libraries needed 
   source('source/createDataset.R')
@@ -14,7 +14,7 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
   source('source/kfolding.R')
   library("ModelGood")
   library('randomForest')
-  library("ROCR")
+  library("pROC")
   #---------------------
   iterationOOB <- c()
   #initialize the counter
@@ -32,7 +32,7 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
     #Doing the kfolding
     for(sample.number in 1:kFold) {
       #Divide in testing and training genes
-      #If the position is in this round of the folding and is the same
+      #If the position is in this iteration of the folding and is the same
       #in the index.select, it will go to the testing set, otherwise
       #to the training set.
       datos$type.train <- datos$type[index.select != sample.number]
@@ -42,31 +42,28 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       #Testing set
       datos$type.test <- datos$type[index.select == sample.number]
       datos$data.test <- datos$data[index.select == sample.number,]
-      #Execute the random forest, y would the labels "affected" and "NonAffected"
-      #and x the training set
+      #Execute the random forest, y = the labels "affected" and "NonAffected"
+      #and x=the training set
       myrf <- randomForest(x=datos$data.train, y=datos$type.train, mtry=2, ntree=500, keep.forest=TRUE, importance=TRUE)
       err.class <- c(err.class,(sum(myrf$confusion[2:3]))/(sum(myrf$confusion[1:4])))
-      #Predicting what the classifier learned, with the training set.
+      #Predicting what the classifier learned with the training set.
       mypredict <- predict(myrf, datos$data.test, type = "prob")
-      mypredict2<-mypredict[,1]
-      #mypredict3<-mypredict[,2]
+      mypredict2<-mypredict[,2]
       
-      #ROC
-      #pred <- prediction(predictions, labels)
-      #pred <- prediction(mypredict2, datos$type.test)
-      #perf <- performance(pred, measure = "tpr", x.measure = "fpr")
-      #plot(perf, col=rainbow(10))
-     
-      #score de brier. 
+      #Curva Roc
+     # roc <- roc(datos$type.test, mypredict2,
+      #            # arguments for auc
+       #           auc=TRUE,
+                  # arguments for ci
+        #          ci=TRUE,
+                  # arguments for plot
+         #         plot=TRUE)
+    
+      #Score de brier. 
       #brierscoreTest<-Brier(myrf, datos$type.test ~ . , data=datos$data.test)
       #print(brierscoreTest)
       #brierscoreTrain<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
       #print(brierscoreTrain)
-      #plot(Roc)
-      #plot(Roc, ylab = "Sensitivity", xlab = "1-Specificity", models,
-       #    type = "l", shadow = FALSE, simu = FALSE, control, grid = FALSE,
-        #   diag = TRUE, box = FALSE, lwd = 2, lty, col, add = FALSE,
-         #  axes = TRUE, legend, auc, percent = TRUE, ...)
       
     }
     #Mean of classification errors of randomForest
