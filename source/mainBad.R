@@ -20,6 +20,7 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
   #While the counter (i.e. the number of times we have executed the random forest)
   #is lower than the total of times we must execute the random forest.
   iterationOOB <- c()
+  iterationbrier<-c()
   while(cont < nTimes) {
     #Creating the dataset and storing in the variable 'datos'
     datos <- createDataset(nGenes, nSubjects)
@@ -30,6 +31,7 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
     index.select <- kfolding(datos,kFold)
     #Store in err.class the classification errors of randomForest
     err.class <- c()
+    brierscore<-c()
     
     #Doing the kfolding
     for(sample.number in 1:kFold) {
@@ -55,8 +57,9 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
       err.class <- c(err.class,(1-sum(diag(confusion.table))/(sum(confusion.table))))
       
       #Predict with the new data and get the probabilities
-      predict.prob <- predict(myrf, datos$data.test, type = "prob")
-      mypredict2<-predict.prob[,2]
+      mypredictprob <- predict(myrf, datos$data.test, type = "prob")
+      mypredictresp <- predict(myrf, datos$data.test, type = "response")
+      mypredict2<-mypredictprob[,2]
 
       #Curva Roc
       #roc <- roc(datos$type.test, mypredict2,
@@ -68,19 +71,20 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
           #       plot=TRUE)
       
       #Brier score
-      #brierscoreTest<-Brier(myrf, datos$type.test ~ . , data=datos$data.test)
-      #print(brierscoreTest)
-      #brierscoreTrain<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
-      #print(brierscoreTrain)
+      bscore<-brierscore(mypredictresp ~ mypredictprob, data = datos$type.test)
+      
+      brierscore<-c(brierscore, (mean(bscore)))
 
       
     }
     #Mean of classification errors of randomForest.
     mean.err.class <- mean(err.class)
+    brierscoremean<-mean(brierscore)
     iterationOOB <- c(iterationOOB, mean.err.class)
+    iterationbrier<-c(iterationbrier, brierscoremean)
     
     #Another iteration
     cont <- cont + 1
   }
-  return(list(OOB=iterationOOB))
+  return(list(OOB=iterationOOB, brier=iterationbrier))
 }
