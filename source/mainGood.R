@@ -44,11 +44,21 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       #Testing set
       datos$type.test <- datos$type[index.select == sample.number]
       datos$data.test <- datos$data[index.select == sample.number,]
+      
       #Execute the random forest, y = the labels "affected" and "NonAffected"
       #and x=the training set
       myrf <- randomForest(x=datos$data.train, y=datos$type.train, mtry=2, ntree=500, keep.forest=TRUE, importance=TRUE)
-      err.class <- c(err.class,(sum(myrf$confusion[2:3]))/(sum(myrf$confusion[1:4])))
+      
       #Predicting what the classifier learned with the training set.
+      prediction <- predict(myrf,datos$data.test)
+      
+      #Create the confusion table with the prediction and the real
+      confusion.table <- table(factor(datos$type.test),prediction)
+      
+      #Store in err.class the classification errors of randomForest
+      err.class <-  c(err.class,(1-sum(diag(confusion.table))/(sum(confusion.table))))
+      
+      #Predict with the new data and get the probabilities
       mypredictprob <- predict(myrf, datos$data.test, type = "prob")
       mypredictresp <- predict(myrf, datos$data.test, type = "response")
       mypredict2<-mypredictprob[,2]

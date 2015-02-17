@@ -45,11 +45,18 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
       #Execute the random forest, y would the labels "affected" and "NonAffected"
       #and x the training set
       myrf <- randomForest(y=datos$type.train, x=datos$data.train,mtry=2, ntree=500, keep.forest=TRUE, importance=TRUE)
-      #Store in err.class the classification errors of randomForest
-      err.class <- c(err.class,(sum(myrf$confusion[2:3]))/(sum(myrf$confusion[1:4])))
+     
       #After that, we predict what the classifier learned, with the training set.
-      mypredict <- predict(myrf, datos$data.test, type="prob")
-      mypredict2<-mypredict[,2]
+      prediction <- predict(myrf,datos$data.test)
+      
+      #Create the confusion table with the prediction and the real
+      confusion.table <- table(factor(datos$type.test),prediction)
+      #Store in err.class the classification errors of randomForest
+      err.class <- c(err.class,(1-sum(diag(confusion.table))/(sum(confusion.table))))
+      
+      #Predict with the new data and get the probabilities
+      predict.prob <- predict(myrf, datos$data.test, type = "prob")
+      mypredict2<-predict.prob[,2]
 
       #Curva Roc
       #roc <- roc(datos$type.test, mypredict2,
@@ -60,6 +67,7 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
                  # arguments for plot
           #       plot=TRUE)
       
+      #Brier score
       #brierscoreTest<-Brier(myrf, datos$type.test ~ . , data=datos$data.test)
       #print(brierscoreTest)
       #brierscoreTrain<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
