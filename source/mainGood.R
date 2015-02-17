@@ -16,13 +16,15 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
   library('randomForest')
   library("ROCR")
   #---------------------
-  #Creating the dataset and storing in the variable 'datos'
-  datos <- createDataset(nGenes, nSubjects)
+ 
   #initialize the counter
   cont <- 0
   #While the counter (i.e. the number of times we have executed the random forest)
   #is lower than the total of times we must execute the random forest.
   while(cont < nTimes) {
+    #Creating the dataset and storing in the variable 'datos'
+    datos <- createDataset(nGenes, nSubjects)
+    
     #Store in index.select the vector of orders
     index.select <- kfolding(datos,kFold)
     #Doing the kfolding

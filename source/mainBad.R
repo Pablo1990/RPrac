@@ -15,16 +15,15 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
   library('randomForest')
   library("ROCR")
   
-  #Creating the dataset and storing in the variable 'datos'
-  datos <- createDataset(nGenes, nSubjects)
-  #Filtering the set. This is the bad way.
-  datos <- filter(datos, selectedGenes, nGenes)
-  
   #initialize the counter
   cont <- 0
   #While the counter (i.e. the number of times we have executed the random forest)
   #is lower than the total of times we must execute the random forest.
   while(cont < nTimes) {
+    #Creating the dataset and storing in the variable 'datos'
+    datos <- createDataset(nGenes, nSubjects)
+    #Filtering the set. This is the bad way.
+    datos <- filter(datos, selectedGenes, nGenes)
     
     #Store in index.select the vector of orders
     index.select <- kfolding(datos,kFold)
