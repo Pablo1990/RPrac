@@ -16,7 +16,7 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
   library('randomForest')
   library("ROCR")
   #---------------------
- 
+  iterationOOB <- c()
   #initialize the counter
   cont <- 0
   #While the counter (i.e. the number of times we have executed the random forest)
@@ -45,7 +45,7 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       #Execute the random forest, y would the labels "affected" and "NonAffected"
       #and x the training set
       myrf <- randomForest(x=datos$data.train, y=datos$type.train, mtry=2, ntree=500, keep.forest=TRUE, importance=TRUE)
-      err.class <- c(err.class,mean(myrf$confusion[,c(3)]))
+      err.class <- c(err.class,(sum(myrf$confusion[2:3]))/(sum(myrf$confusion[1:4])))
       #Predicting what the classifier learned, with the training set.
       mypredict <- predict(myrf, datos$data.test, type = "prob")
       mypredict2<-mypredict[,1]
@@ -58,10 +58,10 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       #plot(perf, col=rainbow(10))
      
       #score de brier. 
-      brierscoreTest<-Brier(myrf, datos$type.test ~ . , data=datos$data.test)
-      print(brierscoreTest)
-      brierscoreTrain<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
-      print(brierscoreTrain)
+      #brierscoreTest<-Brier(myrf, datos$type.test ~ . , data=datos$data.test)
+      #print(brierscoreTest)
+      #brierscoreTrain<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
+      #print(brierscoreTrain)
       #plot(Roc)
       #plot(Roc, ylab = "Sensitivity", xlab = "1-Specificity", models,
        #    type = "l", shadow = FALSE, simu = FALSE, control, grid = FALSE,
@@ -71,8 +71,10 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
     }
     #Mean of classification errors of randomForest
     mean.err.class <- mean(err.class)
-    
+    iterationOOB <- c(iterationOOB, mean.err.class)
     #Another iteration
     cont <- cont + 1
   }
+  return(iterationOOB)
+
 }
