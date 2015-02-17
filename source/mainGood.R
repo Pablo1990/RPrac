@@ -62,9 +62,9 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
          #         plot=TRUE)
     
       #Score de brier. 
-      #brierscoreTest<-Brier(myrf, datos$type.test ~ . , data=datos$data.test)
+      brierscoreTest<-Brier(myrf, x=datos$type.test , y=datos$data.test, formula = datos$type.test ~ ., data=datos$data.test)
       #print(brierscoreTest)
-      #brierscoreTrain<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
+      brierscoreTrain<-Brier(myrf, x=datos$type.train , y=datos$data.train, formula = datos$type.train ~ ., data=datos$data.train)
       #print(brierscoreTrain)
       
     }
