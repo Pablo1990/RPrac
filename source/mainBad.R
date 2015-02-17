@@ -7,7 +7,7 @@
 #kFold: The number of times we are going to divide the dataset in train and dataset
 #selectedGenes: number of genes we are going to select for training dataset
 #nTimes: we execute the process n times.
-mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 1) {
+mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 5) {
   #Load the files and libraries needed
   source('source/createDataset.R')
   source('source/filterPvalueBad.R')
@@ -60,10 +60,10 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
       #print(myrf)
       #print(myrf$predicted)
       #print(myrf$confusion)
-      brierscoreTrain<-Brier(myrf, datos$type.test ~ . , data=datos$data.test)
-      print(brierscoreTrain)
-      brierscoreTest<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
+      brierscoreTest<-Brier(myrf, datos$type.test ~ . , data=datos$data.test)
       print(brierscoreTest)
+      brierscoreTrain<-Brier(myrf, datos$type.train ~ . , data=datos$data.train)
+      print(brierscoreTrain)
       
       #plot(Roc)
       #Roc<-plot(Roc, ylab = "Sensitivity", xlab = "1-Specificity", models,
