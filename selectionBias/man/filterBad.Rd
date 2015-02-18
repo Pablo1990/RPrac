@@ -7,11 +7,11 @@ Feature selection by the wrong method
 It selects the genes with the lower p-values.
 } 
 \usage{
-filterBad(data, selectedGenes, nGenes)
+filterBad(x, selectedGenes, nGenes)
 }
 
 \arguments{
-  \item{data}{
+  \item{x}{
 Data frame of genes in columns and subjects in rows.
 }
   \item{selectedGenes}{

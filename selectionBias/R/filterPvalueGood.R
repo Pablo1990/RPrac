@@ -7,7 +7,7 @@
 filterGood <- function (x,selectedGenes,nGenes) {
   #Get the pvalues of the training set
   train.pvalues <- apply(x$data.train, 2, 
-                   function(x) t.test(x ~ x$type.train)$p.value)
+                   function(y) t.test(y ~ x$type.train)$p.value)
   
   #Get the N selectedGenes of the training set according to the lowest pvalues.
   filtered <- train.pvalues <= quantile (train.pvalues,(selectedGenes/nGenes))

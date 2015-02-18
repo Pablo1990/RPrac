@@ -6,7 +6,7 @@
 #return the filtered data
 filterBad <- function (x,selectedGenes,nGenes) {
   #Get the N selectedGenes of the training set according to the lowest pvalues.
-  filtered <- x$pvalues <= quantile (datos$pvalues,(selectedGenes/nGenes))
+  filtered <- x$pvalues <= quantile (x$pvalues,(selectedGenes/nGenes))
   
   #Do the filtered to the genes
   positions <- which(!filtered)

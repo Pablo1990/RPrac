@@ -33,10 +33,8 @@ Maintainer: Jose Alejandro Romero: joseale2310@hotmail.es
 \keyword{ package }
 \keyword{ selection bias }
 
-\seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
+
 \examples{
-~~ simple examples of the most important functions ~~
+mainGood()
+mainBad()
 }

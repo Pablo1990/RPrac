@@ -10,7 +10,7 @@ It selects the genes with the lower p-values in the train data set.
 }
 
 \usage{
-filterGood(data, selectedGenes, nGenes)
+filterGood(x, selectedGenes, nGenes)
 }
 
 \arguments{
@@ -40,9 +40,7 @@ Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
 }
 
 \examples{
-  source('source/createDataset.R')
-  source('source/filterPvalueGood.R')
-  source('source/kfolding.R')
+
   # Create a data set for the example
   x <- createDataset(1000,50)
   # Create an index fot the k-fold
@@ -53,10 +51,10 @@ Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
       #If the position is in this iteration of the folding and is the same
       #in the index.select, it will go to the testing set, otherwise
       #to the training set.
-      x$type.train <- datos$type[index.select != sample.number]
-      x$data.train <- datos$data[index.select != sample.number,]
+      x$type.train <- x$type[index.select != sample.number]
+      x$data.train <- x$data[index.select != sample.number,]
       #Get the genes with more important pvalues
-      x$data.train <- filterGood(datos,selectedGenes,nGenes)
+      x$data.train <- filterGood(x,50,1000)
       print(x$data)
       print(x$data.train)
       }
