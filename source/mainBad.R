@@ -13,7 +13,8 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
   source('source/filterPvalueBad.R')
   source('source/kfolding.R')
   library('randomForest')
-  library("ROCR")
+  library("pROC")
+  library("scoring")
   
   #initialize the counter
   cont <- 0
@@ -67,7 +68,7 @@ mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 1
         roc <- roc(response = datos$type.test, predictor = mypredict2,
                    auc=TRUE, ci=TRUE, plot=TRUE)
       } else {
-        print ("No ROC this time. There is just one class (affected or nonaffected")
+        print ("No ROC this time. There is just one class (affected or nonaffected)")
       }
       
       #Brier score
