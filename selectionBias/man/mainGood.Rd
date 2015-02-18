@@ -30,12 +30,12 @@ Number of times that will be executed the cross-validation in order to test the 
 }
 }
 \details{
-Details
+There are a few details you may want to know, when you change the default values. If you increased the number of genes of the dataset, the training will learn more, and (of course) the training would be better. That's because of the random data, if it is not, just be careful with overfitting. Another important thing is, when you select more genes with the 'selectedGenes' parameter, there would be more difference between the mainGood and mainBad.
 }
 \value{
 
-\item{comp1 }{Description of 'comp1'}
-\item{comp2 }{Description of 'comp2'}
+\item{OOB}{A vector of size 'ntimes', in which you can see in every position the training error mean of each iteration of the random forest}
+\item{brier}{A vector of size 'ntimes', in which you can see in every position the brier score mean of each iteration of the random forest}
 
 }
 
@@ -43,11 +43,16 @@ Details
 Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
 }
 \note{
-Notes
+Try different values in the parameters: 'selectedGenes', 'nGenes' and 'nSubjects in order to see how the brier score and training error increased or decreased in both mains.
 }
 
 \examples{
-mainGood()
+require(car)
+sample <- mainGood()
+op <- par(mfrow = c(2,2))
+Boxplot (sample$OOB)
+Boxplot (sample$brier)
+par(op)
 }
 
 \keyword{ selection }
