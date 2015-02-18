@@ -1,63 +1,48 @@
 \name{kfolding}
 \alias{kfolding}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+K-fold index creation
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+It creates a vector of indexes for the k-fold loop.
 }
 \usage{
-kfolding(datos, kfold)
+kfolding(x, kfold=10)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{datos}{
-%%     ~~Describe \code{datos} here~~
+  \item{x}{
+Data frame of genes in columns and subjects in rows.
 }
   \item{kfold}{
-%%     ~~Describe \code{kfold} here~~
+Number of randomly partitioned equal size subsamples from the original subject sample.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+In k-fold cross-validation, the original sample is randomly partitioned into k equal size subsamples. Of the k subsamples, a single subsample is retained as the validation data for testing the model, and the remaining k − 1 subsamples are used as training data. The cross-validation process is then repeated k times (the folds), with each of the k subsamples used exactly once as the validation data.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+
+\item{index.select}{A vector of indexes for the k-fold loop}
+
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
+Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+# Create data set for the example
+source('source/createDataset.R')
+x <- createDataset(1000,50)
 
-## The function is currently defined as
-function (datos, kfold) 
-{
-    N <- nrow(datos$data)
-    index.select <- sample(rep(1:kfold, length = N), N, replace = FALSE)
-    return(index.select = index.select)
-  }
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+# Create indexes
+index.select <- kfolding(x,10)
+
+# The index vector will be as long as the number objects, and is used to select which samples will be used for the train set, and which one for the test set.
+table(index.select)
+sum(index.select != 1)
+sum(index.select != 10)
+sum(index.select != 6)
+\keyword{ k-fold}
+\keyword{ index }

@@ -4,7 +4,7 @@
 Feature selection by the wrong method
 }
 \description{
-It selects the genes with the lower p-values and the number of genes selected.
+It selects the genes with the lower p-values.
 } 
 \usage{
 filterBad(data, selectedGenes, nGenes)
@@ -25,8 +25,11 @@ Number of genes within the data frame.
 It returns the list of objects created in the createDataset function, filtered by the p-value. It must be used before the k-fold loop.
 }
 \value{
-\item{data}{A filtered data frame of random values for every gene and subject.}
+
+\item{data}{A filtered data frame of random values for every gene.}
+
 \item{type}{A filtered factor vector of two levels (AFFECTED and NONAFFECTED) as long as the number of subjects.}
+
 \item{pvalues}{A filtered vector p-values of a t-test of the genes.}
 }
 }

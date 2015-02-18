@@ -1,69 +1,68 @@
 \name{filterGood}
 \alias{filterGood}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
-%%  ~~function to do ... ~~
+Feature selection by the right method
 }
+
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+It selects the genes with the lower p-values in the train data set.
 }
+
 \usage{
 filterGood(data, selectedGenes, nGenes)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{data}{
-%%     ~~Describe \code{data} here~~
+  \item{x}{
+Data frame of genes in columns and subjects in rows.
 }
   \item{selectedGenes}{
-%%     ~~Describe \code{selectedGenes} here~~
+Number of genes with the lower p-values.
 }
   \item{nGenes}{
-%%     ~~Describe \code{nGenes} here~~
+Number of genes within the data frame.
 }
 }
+
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+It returns the train data set filtered by p-values.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+
+\item{datafiltered}{A filtered data frame of random values for every gene.}
+
+
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
-%%  ~~who you are~~
+Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
 }
-\note{
-%%  ~~further notes~~
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (data, selectedGenes, nGenes) 
-{
-    train.pvalues <- apply(data$data.train[1:nrow(data$data.train), 
-        1:ncol(data$data.train)], 2, function(x) t.test(x ~ data$type.train)$p.value)
-    filtered <- train.pvalues <= quantile(train.pvalues, (selectedGenes/nGenes))
-    positions <- which(!filtered)
-    datafiltered <- data$data.train[, -positions]
-    return(datafiltered)
-  }
+  source('source/createDataset.R')
+  source('source/filterPvalueGood.R')
+  source('source/kfolding.R')
+  # Create a data set for the example
+  x <- createDataset(1000,50)
+  # Create an index fot the k-fold
+  index.select <- kfolding(x,10)
+  # K-fold loop
+  for(sample.number in 1:10) {
+      #Divide in testing and training genes
+      #If the position is in this iteration of the folding and is the same
+      #in the index.select, it will go to the testing set, otherwise
+      #to the training set.
+      x$type.train <- datos$type[index.select != sample.number]
+      x$data.train <- datos$data[index.select != sample.number,]
+      #Get the genes with more important pvalues
+      x$data.train <- filterGood(datos,selectedGenes,nGenes)
+      print(x$data)
+      print(x$data.train)
+      }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+
+\keyword{ filter }
+\keyword{ p-value }
+\keyword{ good }
