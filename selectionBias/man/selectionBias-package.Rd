@@ -21,7 +21,7 @@ Version: \tab 1.0\cr
 Date: \tab 2015-02-18\cr
 License: \tab No license\cr
 }
-~~ An overview of how to use the package, including the most important functions ~~
+
 }
 
 \author{
@@ -35,20 +35,25 @@ Maintainer: Jose Alejandro Romero: joseale2310@hotmail.es
 
 
 \examples{
-op <- par(mfrow = c(2,2))
+op <- par(mfrow = c(1,2))
 
 require(car)
 
-bad <- mainBad(1000,50,10,50)
-good <- mainGood(1000,50,10,50)
+bad10 <- mainBad(nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 10)
+good10 <- mainGood(nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 10)
 
-sample <- data.frame (OOB= c(good$OOB,bad$OOB), 
+bad50 <- mainBad(nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 50)
+good50 <- mainGood(nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 50)
+
+
+
+sample <- data.frame (OOB = c(good$OOB,bad$OOB), 
                       brier = c(good$brier,bad$brier),
-                      method = rep(c("Good","Bad"),c(length(OOBgood),length(OOBbad)))
+                      method = rep(c("Good","Bad"),c(length(good$OOB),length(bad$OOB)))
 )
 
-Boxplot( OOB ~ method, data=prueba)
-Boxplot( brier ~ method, data=prueba)
+Boxplot( OOB ~ method, data = sample)
+Boxplot( brier ~ method, data = sample)
 
 par(op)
 
