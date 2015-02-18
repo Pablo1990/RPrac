@@ -59,12 +59,12 @@ mainGood <- function (nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes =
       
       #ROC
       #If we get just one class of the existing two, we cannot do the roc curve
-      if(length(which(datos$type.test=="AFFECTED"))!=0 && length(which(datos$type.test=="NONAFFECTED"))!=0){
-        roc <- roc(response = datos$type.test, predictor = mypredict2,
-                   auc=TRUE, ci=TRUE, plot=TRUE)
-      } else {
-        print ("No ROC this time. There is just one class (affected or nonaffected)")
-      }
+#       if(length(which(datos$type.test=="AFFECTED"))!=0 && length(which(datos$type.test=="NONAFFECTED"))!=0){
+#         roc <- roc(response = datos$type.test, predictor = mypredict2,
+#                    auc=TRUE, ci=TRUE, plot=TRUE)
+#       } else {
+#         print ("No ROC this time. There is just one class (affected or nonaffected)")
+#       }
       
       #Score de brier
       bscore<-brierscore(mypredictresp ~ mypredictprob, data = datos$type.test)

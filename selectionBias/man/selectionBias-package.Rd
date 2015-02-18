@@ -35,6 +35,21 @@ Maintainer: Jose Alejandro Romero: joseale2310@hotmail.es
 
 
 \examples{
-mainGood()
-mainBad()
+op <- par(mfrow = c(2,2))
+
+require(car)
+
+bad <- mainBad(1000,50,10,50)
+good <- mainGood(1000,50,10,50)
+
+sample <- data.frame (OOB= c(good$OOB,bad$OOB), 
+                      brier = c(good$brier,bad$brier),
+                      method = rep(c("Good","Bad"),c(length(OOBgood),length(OOBbad)))
+)
+
+Boxplot( OOB ~ method, data=prueba)
+Boxplot( brier ~ method, data=prueba)
+
+par(op)
+
 }
