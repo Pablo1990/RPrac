@@ -3,35 +3,36 @@
 \alias{selectionBias}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+Showing the Selection Bias problem.
 }
+
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+We create two main programs, in which simulate the selection bias problem with the random forest algorithm. 
+In the mainGood we do it in a right way, doing the feature selection within the kfolding. In the second one, we do it in a wrong way, doing the feature selection before the kfolding.
+MSc Bioinformatics 2014-2015 - R & statistics exercise
+Presentation - https://docs.zoho.com/show/publish/pnmm5185d5e8a3ce8459e9903c0954bdfb2d9
 }
+
 \details{
 \tabular{ll}{
 Package: \tab selectionBias\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
 Date: \tab 2015-02-18\cr
-License: \tab What license is it under?\cr
+License: \tab No license\cr
 }
 ~~ An overview of how to use the package, including the most important functions ~~
 }
-\author{
-Who wrote it
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+\author{
+Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
+
+Maintainer: Jose Alejandro Romero: joseale2310@hotmail.es
+
 }
-\references{
-~~ Literature or other references for background information ~~
-}
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation ~~
-~~ directory ~~
 \keyword{ package }
+\keyword{ selection bias }
+
 \seealso{
 ~~ Optional links to other man pages, e.g. ~~
 ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~

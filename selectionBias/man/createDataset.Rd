@@ -37,3 +37,6 @@ set.seed(1)
 x <- createDataset(1000,50)
 print(x)
 }
+\keyword{ create }
+\keyword{ data set }
+\keyword{ random }

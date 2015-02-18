@@ -9,9 +9,9 @@
 mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 10) {
   #Header
   #Load the files and libraries needed 
-  source('source/createDataset.R')
-  source('source/filterPvalueGood.R')
-  source('source/kfolding.R')
+  source('./createDataset.R')
+  source('./filterPvalueGood.R')
+  source('./kfolding.R')
   library('randomForest')
   library("pROC")
   library("scoring")

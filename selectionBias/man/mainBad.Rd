@@ -1,35 +1,37 @@
 \name{mainBad}
 \alias{mainBad}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
-%%  ~~function to do ... ~~
+Wrong method to train a random forest classifier
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+The main program, which runs all the instructions to execute the random forest with cross-validation.
+This will work in a wrong way, because we do the feature selection before the division between 
+training dataset and testing dataset, over-estimating the strength of the classifier.
 }
 \usage{
-mainBad(nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 10)
+mainBad(nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 10)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{nGenes}{
-%%     ~~Describe \code{nGenes} here~~
+A positive integer which indicates the number of genes to be created.
 }
   \item{nSubjects}{
-%%     ~~Describe \code{nSubjects} here~~
+A positive integer which indicates the number of subjects to be created.
 }
   \item{kFold}{
-%%     ~~Describe \code{kFold} here~~
+Number of randomly partitioned equal size subsamples from the original subject sample.
 }
   \item{selectedGenes}{
-%%     ~~Describe \code{selectedGenes} here~~
+Number of genes with the lower p-values.
 }
   \item{nTimes}{
-%%     ~~Describe \code{nTimes} here~~
+Number of times that will be executed the cross-validation in order to test the variability of the classifier.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+
 }
 \value{
 %%  ~Describe the value returned
@@ -42,7 +44,7 @@ mainBad(nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 1
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
 }
 \note{
 %%  ~~further notes~~
@@ -105,7 +107,6 @@ function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10,
     return(list(OOB = iterationOOB, brier = iterationbrier))
   }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+
+\keyword{ selection bias }
+\keyword{ wrong }

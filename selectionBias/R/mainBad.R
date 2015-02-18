@@ -7,11 +7,11 @@
 #kFold: The number of times we are going to divide the dataset in train and dataset
 #selectedGenes: number of genes we are going to select for training dataset
 #nTimes: we execute the process n times.
-mainBad <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 10) {
+mainBad <- function (nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 10) {
   #Load the files and libraries needed
-  source('source/createDataset.R')
-  source('source/filterPvalueBad.R')
-  source('source/kfolding.R')
+  source('./createDataset.R')
+  source('./filterPvalueBad.R')
+  source('./kfolding.R')
   library('randomForest')
   library("pROC")
   library("scoring")
