@@ -1,2 +1,2 @@
 exportPattern("^[[:alpha:]]+")
-import(randomForest, pROC, scoring)
+import(randomForest, pROC, scoring, car)
