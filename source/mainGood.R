@@ -12,7 +12,6 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
   source('source/createDataset.R')
   source('source/filterPvalueGood.R')
   source('source/kfolding.R')
-  library("ModelGood")
   library('randomForest')
   library("pROC")
   library("scoring")
@@ -64,14 +63,14 @@ mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 
       mypredictresp <- predict(myrf, datos$data.test, type = "response")
       mypredict2<-mypredictprob[,2]
       
-      #Curva Roc
-      #roc <- roc(response = datos$type.test, predictor = mypredict2,
-      # arguments for auc
-      #           auc=TRUE,
-      # arguments for ci
-      #          ci=TRUE,
-      # arguments for plot
-      #        plot=TRUE)
+      #ROC
+      #If we get just one class of the existing two, we cannot do the roc curve
+      if(length(which(datos$type.test=="AFFECTED"))!=0 && length(which(datos$type.test=="NONAFFECTED"))!=0){
+        roc <- roc(response = datos$type.test, predictor = mypredict2,
+                   auc=TRUE, ci=TRUE, plot=TRUE)
+      } else {
+        print ("No ROC this time. There is just one class (affected or nonaffected)")
+      }
       
       #Score de brier
       bscore<-brierscore(mypredictresp ~ mypredictprob, data = datos$type.test)
