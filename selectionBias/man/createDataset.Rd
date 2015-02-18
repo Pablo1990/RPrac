@@ -34,7 +34,9 @@ Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
 
 \examples{
 set.seed(1)
+# Creates an example of data set.
 x <- createDataset(1000,50)
+# See data set.
 print(x)
 }
 \keyword{ create }
