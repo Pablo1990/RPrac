@@ -4,7 +4,7 @@
 #selectedGenes: number of genes we are going to select for training dataset
 #nGenes: number of genes involved in the study
 #return the filtered data
-filter <- function (datos,selectedGenes,nGenes) {
+filterBad <- function (datos,selectedGenes,nGenes) {
   #Get the N selectedGenes of the training set according to the lowest pvalues.
   filtered <- datos$pvalues <= quantile (datos$pvalues,(selectedGenes/nGenes))
   

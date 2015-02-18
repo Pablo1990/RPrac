@@ -4,7 +4,7 @@
 #selectedGenes: number of genes we are going to select for training dataset
 #nGenes: number of genes involved in the study
 #return the filtered data
-filter <- function (data,selectedGenes,nGenes) {
+filterGood <- function (data,selectedGenes,nGenes) {
   #Get the pvalues of the training set
   train.pvalues <- apply(data$data.train[1:nrow(data$data.train),1:ncol(data$data.train)], 2, 
                    function(x) t.test(x ~ data$type.train)$p.value)
