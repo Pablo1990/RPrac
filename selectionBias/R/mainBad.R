@@ -19,7 +19,7 @@ mainBad <- function (nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 
     #Creating the dataset and storing in the variable 'datos'
     datos <- createDataset(nGenes, nSubjects)
     #Filtering the set. This is the bad way.
-    datos <- filter(datos, selectedGenes, nGenes)
+    datos <- filterBad(datos, selectedGenes, nGenes)
     
     #Store in index.select the vector of orders
     index.select <- kfolding(datos,kFold)
