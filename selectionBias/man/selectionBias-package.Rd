@@ -39,11 +39,8 @@ op <- par(mfrow = c(1,2))
 
 require(car)
 
-bad10 <- mainBad(nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 10)
-good10 <- mainGood(nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 10)
-
-bad50 <- mainBad(nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 50)
-good50 <- mainGood(nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 50)
+bad <- mainBad(nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 50)
+good <- mainGood(nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 50)
 
 
 
