@@ -49,7 +49,7 @@ Try different values in the parameters: 'selectedGenes', 'nGenes' and 'nSubjects
 \examples{
 require(car)
 sample <- mainGood()
-op <- par(mfrow = c(2,2))
+op <- par(mfrow = c(1,2))
 Boxplot (sample$OOB)
 Boxplot (sample$brier)
 par(op)

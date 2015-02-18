@@ -45,7 +45,7 @@ Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
 
 \examples{
 require(car)
-op <- par(mfrow=c(2,2))
+op <- par(mfrow=c(1,2))
 bad <- mainBad()
 
 Boxplot(bad$OOB)
