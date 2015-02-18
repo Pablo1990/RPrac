@@ -7,3 +7,4 @@ Author: Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
 Maintainer: Jose Alejandro Romero <joseale2310@hotmail.es>
 Description: It simulates the Selection Bias problem. 
 License: Unlimited
+Imports: randomForest, pROC, scoring

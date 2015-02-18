@@ -8,10 +8,7 @@
 #nTimes: we execute the process n times.
 mainGood <- function (nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 10) {
   #Header
-  #Load the files and libraries needed 
-  library('randomForest')
-  library("pROC")
-  library("scoring")
+
   #---------------------
   iterationOOB <- c()
   iterationbrier<-c()
