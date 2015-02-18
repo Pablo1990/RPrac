@@ -44,5 +44,6 @@ table(index.select)
 sum(index.select != 1)
 sum(index.select != 10)
 sum(index.select != 6)
+}
 \keyword{ k-fold}
 \keyword{ index }

@@ -32,12 +32,11 @@ It returns the train data set filtered by p-values.
 
 \item{datafiltered}{A filtered data frame of random values for every gene.}
 
-
 }
 
 \author{
 Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
-}
+
 }
 
 \examples{

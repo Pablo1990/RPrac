@@ -32,7 +32,7 @@ It returns the list of objects created in the createDataset function, filtered b
 
 \item{pvalues}{A filtered vector p-values of a t-test of the genes.}
 }
-}
+
 
 \author{
 Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
