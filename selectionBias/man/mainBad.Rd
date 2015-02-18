@@ -45,6 +45,7 @@ Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
 
 \examples{
 mainBad()
-
-\keyword{ selection bias }
+}
+\keyword{ selection }
+\keyword{ bias }
 \keyword{ wrong }

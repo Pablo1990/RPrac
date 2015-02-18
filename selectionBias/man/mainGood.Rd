@@ -50,5 +50,6 @@ Notes
 mainGood()
 }
 
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }
+\keyword{ selection }
+\keyword{ bias }
+\keyword{ right }

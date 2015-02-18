@@ -19,7 +19,7 @@ Number of randomly partitioned equal size subsamples from the original subject s
 }
 }
 \details{
-In k-fold cross-validation, the original sample is randomly partitioned into k equal size subsamples. Of the k subsamples, a single subsample is retained as the validation data for testing the model, and the remaining k − 1 subsamples are used as training data. The cross-validation process is then repeated k times (the folds), with each of the k subsamples used exactly once as the validation data.
+In k-fold cross-validation, the original sample is randomly partitioned into k equal size subsamples. Of the k subsamples, a single subsample is retained as the validation data for testing the model, and the remaining k - 1 subsamples are used as training data. The cross-validation process is then repeated k times, the folds, with each of the k subsamples used exactly once as the validation data.
 }
 \value{
 
@@ -33,13 +33,14 @@ Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
 
 \examples{
 # Create data set for the example
-source('source/createDataset.R')
+
 x <- createDataset(1000,50)
 
 # Create indexes
 index.select <- kfolding(x,10)
 
-# The index vector will be as long as the number objects, and is used to select which samples will be used for the train set, and which one for the test set.
+# The index vector will be as long as the number objects, and is used to select which samples will be
+# used for the train set, and which one for the test set.
 table(index.select)
 sum(index.select != 1)
 sum(index.select != 10)
