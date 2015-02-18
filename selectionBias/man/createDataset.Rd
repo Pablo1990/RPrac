@@ -8,7 +8,7 @@ Create data set
 createDataset creates random data necessary for the bias selection problem.
 }
 \usage{
-createDataset(nGenes = 100, nSubjects = 50)
+createDataset(nGenes = 1000, nSubjects = 50)
 }
 \arguments{
   \item{nGenes}{

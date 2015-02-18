@@ -9,7 +9,7 @@ This will work in the right way, because we do the feature selection within the 
 training dataset and testing dataset, over-estimating the strength of the classifier.
 }
 \usage{
-mainGood(nGenes = 100, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 10)
+mainGood(nGenes = 1000, nSubjects = 50, kFold = 10, selectedGenes = 10, nTimes = 10)
 }
 
 \arguments{
