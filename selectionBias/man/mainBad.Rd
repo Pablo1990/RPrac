@@ -34,8 +34,8 @@ Number of times that will be executed the cross-validation in order to test the 
 Details
 }
 \value{
-\item{comp1 }{Description of 'comp1'}
-\item{comp2 }{Description of 'comp2'}
+\item{OOB}{Out of Bag Error, given by the function randomForest, that shows the error rate of the out of Bag classifier on the training set }
+\item{brier }{The media of the probabilities that measure the accuracy of the predictions for each iteration}
 
 }
 
@@ -44,7 +44,13 @@ Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
 }
 
 \examples{
-mainBad()
+require(car)
+op <- par(mfrow=c(2,2))
+bad <- mainBad(nGenes = 1000, nSubjects = 100, kFold = 10, selectedGenes = 10, nTimes = 10)
+
+Boxplot(bad$OOB)
+Boxplot(bad$brier)
+par(op)
 }
 \keyword{ selection }
 \keyword{ bias }
