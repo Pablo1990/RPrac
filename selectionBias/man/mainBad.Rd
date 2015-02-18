@@ -45,8 +45,8 @@ Claudia Buhigas, Pablo Vicente and Jose Alejandro Romero
 
 \examples{
 require(car)
-op <- par(mfrow=c(2,2))
-bad <- mainBad(nGenes = 1000, nSubjects = 100, kFold = 10, selectedGenes = 10, nTimes = 10)
+op <- par(mfrow=c(1,2))
+bad <- mainBad()
 
 Boxplot(bad$OOB)
 Boxplot(bad$brier)

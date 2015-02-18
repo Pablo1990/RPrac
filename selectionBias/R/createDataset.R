@@ -2,7 +2,7 @@
 #nGenes: number of genes involved in the study
 #nSubjects: number of subjects involved in the study
 #return the created dataset
-createDataset <- function(nGenes = 100, nSubjects = 50){
+createDataset <- function(nGenes = 1000, nSubjects = 50){
   #￼help(rnorm) help(runif) help(rpois)
   #set.seed(2) #for testing
   
